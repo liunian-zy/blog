@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>AndroidStudioMarkdown无法预览</title>
+      <link href="/2022/12/27/androidstudiomarkdown-wu-fa-yu-lan/"/>
+      <url>/2022/12/27/androidstudiomarkdown-wu-fa-yu-lan/</url>
+      
+        <content type="html"><![CDATA[<h4 id="AndroidStudioMarkdown无法预览"><a href="#AndroidStudioMarkdown无法预览" class="headerlink" title="AndroidStudioMarkdown无法预览"></a>AndroidStudioMarkdown无法预览</h4><p>最近在使用AS时发现在idea中正常使用的markdown预览功能在AS里无效,查看插件列表发现是有安装Markdown插件的,查询资料后解决了问题,解决方案为:Help选项卡-&gt;FindAction-&gt;Choose Boot Java Runtime for the IDE,然后current选项选择最上边的一项.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> AndroidStudio </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> AndroidStudio </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>mysql find_in_set计数</title>
+      <link href="/2022/01/14/mysql-find-in-set-ji-shu/"/>
+      <url>/2022/01/14/mysql-find-in-set-ji-shu/</url>
+      
+        <content type="html"><![CDATA[<h3 id="mysql-find-in-set计数"><a href="#mysql-find-in-set计数" class="headerlink" title="mysql find_in_set计数"></a>mysql find_in_set计数</h3><p>a表</p><table><thead><tr><th align="center">id</th><th align="center">b_ids</th></tr></thead><tbody><tr><td align="center">1</td><td align="center">1,2,3</td></tr><tr><td align="center">2</td><td align="center">2,3,4</td></tr><tr><td align="center">3</td><td align="center">4,5,6</td></tr></tbody></table><p>b表</p><table><thead><tr><th align="center">id</th><th align="center">name</th></tr></thead><tbody><tr><td align="center">1</td><td align="center">aa</td></tr><tr><td align="center">2</td><td align="center">bb</td></tr><tr><td align="center">3</td><td align="center">cc</td></tr><tr><td align="center">4</td><td align="center">dd</td></tr><tr><td align="center">5</td><td align="center">ee</td></tr><tr><td align="center">6</td><td align="center">ff</td></tr></tbody></table><p>要查询a表中b_ids字段中每个id的name和数量</p><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span> <span class="token function">count</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> count<span class="token punctuation">,</span>b<span class="token punctuation">.</span>name <span class="token keyword">from</span> a<span class="token punctuation">,</span>b <span class="token keyword">where</span> find_in_set<span class="token punctuation">(</span>b<span class="token punctuation">.</span>id<span class="token punctuation">,</span>a<span class="token punctuation">.</span>b_ids<span class="token punctuation">)</span><span class="token operator">!=</span><span class="token number">0</span> <span class="token keyword">group</span> <span class="token keyword">by</span> b<span class="token punctuation">.</span>id<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>结果</p><p><img src="/images/image-20220114114947216.png" alt="图1 结果"> </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> mysql </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>php获取N个自然月后的日期</title>
+      <link href="/2022/01/12/php-huo-qu-n-ge-zi-ran-yue-hou-de-ri-qi/"/>
+      <url>/2022/01/12/php-huo-qu-n-ge-zi-ran-yue-hou-de-ri-qi/</url>
+      
+        <content type="html"><![CDATA[<h3 id="php获取N个自然月后的日期"><a href="#php获取N个自然月后的日期" class="headerlink" title="php获取N个自然月后的日期"></a>php获取N个自然月后的日期</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">function</span> <span class="token function-definition function">next_months</span><span class="token punctuation">(</span><span class="token variable">$date</span><span class="token punctuation">,</span> <span class="token variable">$months</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">is_numeric</span><span class="token punctuation">(</span><span class="token variable">$date</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>        <span class="token variable">$date</span> <span class="token operator">=</span> <span class="token function">date</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'Y-m-d'</span><span class="token punctuation">,</span> <span class="token variable">$date</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token punctuation">}</span>    <span class="token variable">$next_month</span> <span class="token operator">=</span> <span class="token function">date</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'Y-m-d'</span><span class="token punctuation">,</span> <span class="token function">strtotime</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'+'</span> <span class="token operator">.</span> <span class="token variable">$months</span> <span class="token operator">.</span> <span class="token string single-quoted-string">' month'</span><span class="token punctuation">,</span> <span class="token function">strtotime</span><span class="token punctuation">(</span><span class="token variable">$date</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword">list</span><span class="token punctuation">(</span><span class="token variable">$d_y</span><span class="token punctuation">,</span> <span class="token variable">$d_m</span><span class="token punctuation">,</span> <span class="token variable">$d_d</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">explode</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'-'</span><span class="token punctuation">,</span> <span class="token variable">$date</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword">list</span><span class="token punctuation">(</span><span class="token variable">$n_y</span><span class="token punctuation">,</span> <span class="token variable">$n_m</span><span class="token punctuation">,</span> <span class="token variable">$n_d</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">explode</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'-'</span><span class="token punctuation">,</span> <span class="token variable">$next_month</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token variable">$diff</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token variable">$n_y</span> <span class="token operator">-</span> <span class="token variable">$d_y</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">12</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token variable">$n_m</span> <span class="token operator">-</span> <span class="token variable">$d_m</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$diff</span> <span class="token operator">&gt;</span> <span class="token variable">$months</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>        <span class="token variable">$next_month</span> <span class="token operator">=</span> <span class="token function">date</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'Y-m-d'</span><span class="token punctuation">,</span> <span class="token function">strtotime</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'last day of next month'</span><span class="token punctuation">,</span> <span class="token function">strtotime</span><span class="token punctuation">(</span><span class="token variable">$date</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token punctuation">}</span>    <span class="token keyword">return</span> <span class="token variable">$next_month</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>来源: <span class="github-emoji"><span>🔗</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f517.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span><a href="https://yian.me/blog/php/get-the-date-of-next-month-in-php.html">https://yian.me/blog/php/get-the-date-of-next-month-in-php.html</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> php </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> php </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vmware无法安装vmwareTools</title>
+      <link href="/2022/01/06/vmware-wu-fa-an-zhuang-vmwaretools/"/>
+      <url>/2022/01/06/vmware-wu-fa-an-zhuang-vmwaretools/</url>
+      
+        <content type="html"><![CDATA[<h4 id="vmware无法安装vmwareTools"><a href="#vmware无法安装vmwareTools" class="headerlink" title="vmware无法安装vmwareTools"></a>vmware无法安装vmwareTools</h4><p>找到vmware安装目录，搜索对应系统的iso文件，比如你装的虚拟机是win系统，那就搜windows.iso。然后像正常安装iso文件一样放到驱动器中就可以安装了。</p><p>在安装过程中，如果vmware版本比较高，可能会出现报错，只需要安装win7更新补丁即可。</p><p>参考资料:<span class="github-emoji"><span>🔗</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f517.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span><a href="https://www.catalog.update.microsoft.com/search.aspx?q=kb4474419">https://www.catalog.update.microsoft.com/search.aspx?q=kb4474419</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> vmware </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vmware </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>chrome光标浏览模式</title>
+      <link href="/2021/12/16/chrome-guang-biao-liu-lan-mo-shi/"/>
+      <url>/2021/12/16/chrome-guang-biao-liu-lan-mo-shi/</url>
+      
+        <content type="html"><![CDATA[<h1 id="chrome光标浏览模式"><a href="#chrome光标浏览模式" class="headerlink" title="chrome光标浏览模式"></a>chrome光标浏览模式</h1><p>chrome按快捷键F7开启光标浏览模式，就会在页面上出现光标选择器，会导致播放视频时按-&gt;快进同时使页面向下移动，记录一下。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> chrome </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> chrome </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Mysql查询逗号、&#39;/&#39;分割的id对应的信息</title>
+      <link href="/2021/11/19/mysql-cha-xun-dou-hao-fen-ge-de-id-deng-dui-ying-de-xin-xi/"/>
+      <url>/2021/11/19/mysql-cha-xun-dou-hao-fen-ge-de-id-deng-dui-ying-de-xin-xi/</url>
+      
+        <content type="html"><![CDATA[<h3 id="Mysql查询逗号、’-x2F-‘分割的id对应的信息"><a href="#Mysql查询逗号、’-x2F-‘分割的id对应的信息" class="headerlink" title="Mysql查询逗号、’/‘分割的id对应的信息"></a>Mysql查询逗号、’/‘分割的id对应的信息</h3><p>表名：tmp</p><p>表结构：<img src="/images/image-20211119204029261.png" alt="图1 表结构"></p><p>效果：<img src="/images/image-20211119204238035.png" alt="图2 效果"></p><p>使用的sql语句：</p><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> t1<span class="token punctuation">.</span>code<span class="token punctuation">,</span>t1<span class="token punctuation">.</span>name<span class="token punctuation">,</span>t1<span class="token punctuation">.</span>layer_path<span class="token punctuation">,</span>GROUP_CONCAT<span class="token punctuation">(</span>t2<span class="token punctuation">.</span>name <span class="token keyword">order</span> <span class="token keyword">BY</span> t2<span class="token punctuation">.</span>code <span class="token keyword">asc</span> SEPARATOR <span class="token string">'/'</span><span class="token punctuation">)</span> layer_path_text <span class="token keyword">from</span> tmp t1 <span class="token keyword">LEFT</span> <span class="token keyword">JOIN</span> tmp t2 <span class="token keyword">ON</span> FIND_IN_SET<span class="token punctuation">(</span>t2<span class="token punctuation">.</span>code<span class="token punctuation">,</span><span class="token keyword">replace</span><span class="token punctuation">(</span>t1<span class="token punctuation">.</span>layer_path<span class="token punctuation">,</span> <span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">&gt;</span><span class="token number">0</span>  <span class="token keyword">GROUP</span> <span class="token keyword">BY</span> t1<span class="token punctuation">.</span>code <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>参考资料:<span class="github-emoji"><span>🔗</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f517.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span><a href="https://blog.csdn.net/weixin_42540974/article/details/106198359">https://blog.csdn.net/weixin_42540974/article/details/106198359</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> mysql </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>使idea支持@Value注解跳转yml配置文件</title>
+      <link href="/2021/11/16/shi-idea-zhi-chi-value-zhu-jie-tiao-zhuan-yml-pei-zhi-wen-jian/"/>
+      <url>/2021/11/16/shi-idea-zhi-chi-value-zhu-jie-tiao-zhuan-yml-pei-zhi-wen-jian/</url>
+      
+        <content type="html"><![CDATA[<h3 id="使idea支持-Value注解跳转yml配置文件"><a href="#使idea支持-Value注解跳转yml配置文件" class="headerlink" title="使idea支持@Value注解跳转yml配置文件"></a>使idea支持@Value注解跳转yml配置文件</h3><p>安装 <code>spring-assistant-@valueToYml</code>插件即可</p><p>插件地址:<span class="github-emoji"><span>🔗</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f517.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span><a href="https://plugins.jetbrains.com/plugin/15574-spring-assistant-valuetoyml">https://plugins.jetbrains.com/plugin/15574-spring-assistant-valuetoyml</a></p><p>或者直接插件商店搜索即可</p><p>tip:<span class="github-emoji"><span>🔗</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f517.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span><a href="https://python.iitter.com/other/172382.html">https://python.iitter.com/other/172382.html</a> 几个idea使用小技巧和插件</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> idea </category>
+          
+          <category> spring注解 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> idea </tag>
+            
+            <tag> springboot </tag>
+            
+            <tag> spring </tag>
+            
+            <tag> sring注解 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>mysql存入时间23:59:59异常</title>
+      <link href="/2021/11/15/mysql-cun-ru-shi-jian-23-59-59-yi-chang/"/>
+      <url>/2021/11/15/mysql-cun-ru-shi-jian-23-59-59-yi-chang/</url>
+      
+        <content type="html"><![CDATA[<h4 id="mysql存入时间23-59-59异常"><a href="#mysql存入时间23-59-59异常" class="headerlink" title="mysql存入时间23:59:59异常"></a>mysql存入时间23:59:59异常</h4><p>问题来源于技术交流群内群友分享：在使用java获取某日endtime后存入mysql中发现会将23:59:59自动更改为第二天的00:00:00</p><p>查阅资料得知mysql会将毫秒位大于500的自动进位，故解决办法是将毫秒位手动置为0</p><p>参考资料:<span class="github-emoji"><span>🔗</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f517.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span><a href="https://www.cnblogs.com/fswhq/p/mysql_1.html">https://www.cnblogs.com/fswhq/p/mysql_1.html</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> mysql </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker安装mysql5.7</title>
+      <link href="/2021/11/12/docker-an-zhuang-mysql5.7/"/>
+      <url>/2021/11/12/docker-an-zhuang-mysql5.7/</url>
+      
+        <content type="html"><![CDATA[<h3 id="docker安装mysql5-7"><a href="#docker安装mysql5-7" class="headerlink" title="docker安装mysql5.7"></a>docker安装mysql5.7</h3><ul><li><p>下载镜像</p>  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> pull mysql:5.7<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li><li><p>运行容器</p>  <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run -p <span class="token number">3306</span>:3306 --name mysql <span class="token punctuation">\</span>-v /mydata/mysql/log:/var/log/mysql <span class="token punctuation">\</span>-v /mydata/mysql/data:/vat/lib/mysql <span class="token punctuation">\</span>-v /mydata/mysql/conf:/etc/mysql <span class="token punctuation">\</span>-e <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span>root <span class="token punctuation">\</span>-d mysql:5.7<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li><li><p>修改mysql配置文件</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> /mydata/mysql/conf/my.cnf<span class="token punctuation">[</span>client<span class="token punctuation">]</span>default-character-set<span class="token operator">=</span>utf8<span class="token punctuation">[</span>mysql<span class="token punctuation">]</span>default-character-set<span class="token operator">=</span>utf8<span class="token punctuation">[</span>mysqld<span class="token punctuation">]</span><span class="token assign-left variable">init_connect</span><span class="token operator">=</span><span class="token string">'SET collation_connection = utf8_unicode_ci'</span><span class="token assign-left variable">init_connect</span><span class="token operator">=</span><span class="token string">'SET NAMES utf8'</span>character-set-server<span class="token operator">=</span>utf8collation-server<span class="token operator">=</span>utf8_unicode_ciskip-character-set-client-handshakeskip-name-resolve<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li><li><p>解决MySQL连接慢的问题</p><p>在配置文件中加入如下内容并重启mysql</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>mysqld<span class="token punctuation">]</span>skip-name-resolve<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> docker </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker安装redis</title>
+      <link href="/2021/11/12/docker-an-zhuang-redis/"/>
+      <url>/2021/11/12/docker-an-zhuang-redis/</url>
+      
+        <content type="html"><![CDATA[<h3 id="docker安装redis"><a href="#docker安装redis" class="headerlink" title="docker安装redis"></a>docker安装redis</h3><ul><li><p>下载镜像</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> pull redis<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li><li><p>运行容器（预先创建redis.conf文件避免在挂载目录时将其当做目录）</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> -p /mydata/redis/conf<span class="token function">touch</span> /mydata/redis/conf/redis.conf<span class="token function">docker</span> run -p <span class="token number">6379</span>:6379 --name redis <span class="token punctuation">\</span>-v /mydata/redis/data:/data <span class="token punctuation">\</span>-v /mydata/redis/conf/redis.conf:/etc/redis/redis.conf <span class="token punctuation">\</span>-d redis redis-server /etc/redis/redis.conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li><li><p>设置持久化，在配置文件中添加如下内容</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">appendonly <span class="token function">yes</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> docker </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker镜像自启动</title>
+      <link href="/2021/11/12/docker-jing-xiang-zi-qi-dong/"/>
+      <url>/2021/11/12/docker-jing-xiang-zi-qi-dong/</url>
+      
+        <content type="html"><![CDATA[<h3 id="docker镜像自启动"><a href="#docker镜像自启动" class="headerlink" title="docker镜像自启动"></a>docker镜像自启动</h3><p>执行如下命令</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> update xxx --restart<span class="token operator">=</span>always<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> docker </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>npm使用淘宝镜像</title>
+      <link href="/2021/11/12/npm-shi-yong-tao-bao-jing-xiang/"/>
+      <url>/2021/11/12/npm-shi-yong-tao-bao-jing-xiang/</url>
+      
+        <content type="html"><![CDATA[<h3 id="npm使用淘宝镜像"><a href="#npm使用淘宝镜像" class="headerlink" title="npm使用淘宝镜像"></a>npm使用淘宝镜像</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> config <span class="token builtin class-name">set</span> registry https://registry.npmmirror.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>使用cnpm</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> -g cnpm --registry<span class="token operator">=</span>https://registry.npmmirror.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> npm </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> npm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>springboot配置静态资源路径导致welcome页面失效</title>
+      <link href="/2021/11/10/springboot-pei-zhi-jing-tai-zi-yuan-lu-jing-dao-zhi-welcome-ye-mian-shi-xiao/"/>
+      <url>/2021/11/10/springboot-pei-zhi-jing-tai-zi-yuan-lu-jing-dao-zhi-welcome-ye-mian-shi-xiao/</url>
+      
+        <content type="html"><![CDATA[<h3 id="springboot配置静态资源路径导致welcome页面失效"><a href="#springboot配置静态资源路径导致welcome页面失效" class="headerlink" title="springboot配置静态资源路径导致welcome页面失效"></a>springboot配置静态资源路径导致welcome页面失效</h3><p>参考资料:<span class="github-emoji"><span>🔗</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f517.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span><a href="https://jishuin.proginn.com/p/763bfbd5db18">https://jishuin.proginn.com/p/763bfbd5db18</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> springboot </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> springboot </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>idea没有contextConfigLocation提示</title>
+      <link href="/2021/10/31/idea-mei-you-contextconfiglocation-ti-shi/"/>
+      <url>/2021/10/31/idea-mei-you-contextconfiglocation-ti-shi/</url>
+      
+        <content type="html"><![CDATA[<h3 id="idea没有contextConfigLocation提示"><a href="#idea没有contextConfigLocation提示" class="headerlink" title="idea没有contextConfigLocation提示"></a>idea没有contextConfigLocation提示</h3><p>问题：<br>如下图所示<br>web项目下的web.xml中 context-param的自动提示中没有contextConfigLocation<br><img src="/images/bdf0cc91e230d6ea3c49ec701e7e318a.png" alt="图1 web.xml"><br>解决方式：<br>Settings-Plugins中，勾选Spring MVC即可<br><img src="/images/38a682e977ca75fa7cef0a4733e70eba.png" alt="图2 Settings-Plugins"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> idea </category>
+          
+          <category> springmvc </category>
+          
+          <category> java web </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> idea </tag>
+            
+            <tag> springmvc </tag>
+            
+            <tag> java web </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
